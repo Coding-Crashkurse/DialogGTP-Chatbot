@@ -21,8 +21,9 @@ api = Api(app, version="1.0", title="TodoMVC API", description="A simple TodoMVC
 class Predict(Resource):
     def post(self):
         text = request.get_json()["text"]
-        print(text)
         texts.append(text)
+
+        print(texts)
 
         for idx, text in enumerate(texts):
             # encodethe new user input, add the eos_token and return a tensor in Pytorch
@@ -47,7 +48,6 @@ class Predict(Resource):
                 chat_history_ids[:, bot_input_ids.shape[-1] :][0],
                 skip_special_tokens=True,
             )
-            print(texts)
         return {"message": new_output}
 
 
